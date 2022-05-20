@@ -20,6 +20,7 @@ function Counter() {
 
   return (
     <div>
+      hoge
       <div className={styles.row}>
         <button
           className={styles.button}

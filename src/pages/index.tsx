@@ -2,6 +2,8 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 
 import Counter from '../features/counter/Counter'
+import Web3 from '../features/web3/Web3'
+import Blockchain from '../features/blockchain/Blockchain'
 import styles from '../styles/Home.module.css'
 
 const IndexPage: NextPage = () => {
@@ -13,7 +15,7 @@ const IndexPage: NextPage = () => {
       </Head>
       <header className={styles.header}>
         <img src="/logo.svg" className={styles.logo} alt="logo" />
-        <Counter />
+        <Blockchain />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
