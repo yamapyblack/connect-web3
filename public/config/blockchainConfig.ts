@@ -1,10 +1,10 @@
-{
+export const blockchainConfig ={
   "CONTRACT_ADDRESS": "0x827acb09a2dc20e39c9aad7f7190d9bc53534192",
   "SCAN_LINK": "https://polygonscan.com/token/0x827acb09a2dc20e39c9aad7f7190d9bc53534192",
   "NETWORK": {
-    "NAME": "Polygon",
-    "SYMBOL": "Matic",
-    "CHAIN_ID": 137
+    "NAME": "Astar",
+    "SYMBOL": "ASTR",
+    "CHAIN_ID": "0x250"
   },
   "NFT_NAME": "Nerdy Coder Clones",
   "SYMBOL": "NCC",
@@ -15,4 +15,15 @@
   "MARKETPLACE": "Opeansea",
   "MARKETPLACE_LINK": "https://opensea.io/collection/nerdy-coder-clones",
   "SHOW_BACKGROUND": true
+}
+
+export const networkInfo = {
+  chainId: "0x250",
+  chainName: "Astar Network",
+  nativeCurrency: {
+    name: "ASTR",
+    symbol: "ASTR",
+    decimals: 18,
+  },
+  rpcUrls: ["https://astar.api.onfinality.io/public"],
 }

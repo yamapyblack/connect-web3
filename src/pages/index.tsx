@@ -1,65 +1,50 @@
 import type { NextPage } from 'next'
-import Head from 'next/head'
 
-import Counter from '../features/counter/Counter'
-import Web3 from '../features/web3/Web3'
-import Blockchain from '../features/blockchain/Blockchain'
-import styles from '../styles/Home.module.css'
+import {
+  Box,
+  Heading,
+  Container,
+  Text,
+  Button,
+  Stack,
+} from '@chakra-ui/react';
 
 const IndexPage: NextPage = () => {
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Redux Toolkit</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <header className={styles.header}>
-        <img src="/logo.svg" className={styles.logo} alt="logo" />
-        <Blockchain />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className={styles.link}
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className={styles.link}
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className={styles.link}
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className={styles.link}
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
-  )
+    <>
+      <Container maxW={'4xl'}>
+        <Stack
+          as={Box}
+          textAlign={'center'}
+          spacing={{ base: 8, md: 14 }}
+          py={{ base: 20, md: 36 }}>
+          <Heading
+            fontWeight={600}
+            fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
+            lineHeight={'110%'}>
+            Accerelate your development<br />
+            <Text as={'span'} color={'green.400'}>
+              on Web3
+            </Text>
+          </Heading>
+          <Text color={'gray.500'}>
+            You can get and store users address and chainid by the Metamask and<br/>
+            Next.js and Redux help your velocity.
+          </Text>
+          <Stack
+            direction={'column'}
+            spacing={3}
+            align={'center'}
+            alignSelf={'center'}
+            position={'relative'}>
+            <Button variant={'link'} colorScheme={'blue'} size={'sm'}>
+              Learn more
+            </Button>
+          </Stack>
+        </Stack>
+      </Container>
+    </>
+  );
 }
 
 export default IndexPage

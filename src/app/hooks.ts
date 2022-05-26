@@ -1,46 +1,44 @@
 // import type { ChangeEvent } from 'react'
-// import { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 
 import type { AppDispatch, AppState } from './store'
+import type {BlockchainState} from '../features/blockchain/blockchainSlice'
+import { ethers } from "ethers";
+import { abi } from "../../public/config/abi/abi";
 
-// export const useForm =
-//   <TContent>(defaultValues: TContent) =>
-//   (handler: (content: TContent) => void) =>
-//   async (event: ChangeEvent<HTMLFormElement>) => {
-//     event.preventDefault()
-//     event.persist()
+const contractAddr = "0xD02ffF070D6168B159EB5d212821CBCB0B244A6d"
 
-//     const form = event.target as HTMLFormElement
-//     const elements = Array.from(form.elements) as HTMLInputElement[]
-//     const data = elements
-//       .filter((element) => element.hasAttribute('name'))
-//       .reduce(
-//         (object, element) => ({
-//           ...object,
-//           [`${element.getAttribute('name')}`]: element.value,
-//         }),
-//         defaultValues
-//       )
-//     await handler(data)
-//     form.reset()
-//   }
 
-// // https://overreacted.io/making-setinterval-declarative-with-react-hooks/
-// export const useInterval = (callback: Function, delay: number) => {
-//   const savedCallback = useRef<Function>()
-//   useEffect(() => {
-//     savedCallback.current = callback
-//   }, [callback])
-//   useEffect(() => {
-//     const handler = (...args: any) => savedCallback.current?.(...args)
+export const balanceOf = (blockchain: BlockchainState) => {
+  console.log("balanceOf hook");
 
-//     if (delay !== null) {
-//       const id = setInterval(handler, delay)
-//       return () => clearInterval(id)
-//     }
-//   }, [delay])
-// }
+  useEffect(() => {
+    const _balance = async() => {
+      if(!blockchain.account){
+        console.log("balanceOf no account")
+        return
+      }
+        
+      const provider = new ethers.providers.Web3Provider(
+        (window as any).ethereum
+      );
+    
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(
+        contractAddr,
+        abi,
+        signer
+      );
+    
+      const b = await contract.balanceOf(blockchain.account);
+      console.log('b', b.toNumber())
+    }
+    _balance()
+  }, [])
+
+}
+
 
 // Use throughout your app instead of plain `useDispatch` and `useSelector`
 export const useAppDispatch = () => useDispatch<AppDispatch>()
