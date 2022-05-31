@@ -29,7 +29,9 @@ const MintPage: NextPage = () => {
   const toast = useToast();
 
   const amount = async () => {
-    if(!isLoggedIn){return}
+    if (!isLoggedIn) {
+      return;
+    }
     const provider = new ethers.providers.Web3Provider(
       (window as any).ethereum
     );
@@ -46,7 +48,9 @@ const MintPage: NextPage = () => {
   };
 
   const claim = async () => {
-    if(!isLoggedIn){return}
+    if (!isLoggedIn) {
+      return;
+    }
     let price = nftInfo.price;
 
     const provider = new ethers.providers.Web3Provider(
@@ -58,14 +62,14 @@ const MintPage: NextPage = () => {
 
     try {
       const tx = await contract.buy({ value: ethers.utils.parseEther(price) });
-      console.log(tx)
+      console.log(tx);
       toast({
         title: "Transaction",
         description: "Starting to execute a transaction",
         status: "success",
       });
     } catch (err) {
-      console.log(err)
+      console.log(err);
       toast({
         title: "Transaction",
         description: "Something went wrong.",
@@ -96,32 +100,27 @@ const MintPage: NextPage = () => {
           <Box position="relative">
             <Box py={4} px={12}>
               <Text fontSize="5xl" fontWeight="900">
-                {mintNum}
-                /
-                {nftInfo.maxSupply}
+                {mintNum}/{nftInfo.maxSupply}
               </Text>
             </Box>
             <Box px={12}>
               <LinkBox>
-              <LinkOverlay href={nftInfo.scanLink}>
-              <Button variant={'link'} colorScheme={'blue'} >
-                {shortLen(nftInfo.contractAddress)}
-              </Button>
-              </LinkOverlay>
+                <LinkOverlay href={nftInfo.scanLink}>
+                  <Button variant={"link"} colorScheme={"blue"}>
+                    {shortLen(nftInfo.contractAddress)}
+                  </Button>
+                </LinkOverlay>
               </LinkBox>
             </Box>
-            <Box py={4} px={12} fontSize="2xl" >
-              1 {nftInfo.symbol} consts {nftInfo.price} {networkInfo.nativeCurrency.symbol}
+            <Box py={4} px={12} fontSize="2xl">
+              1 {nftInfo.symbol} consts {nftInfo.price}{" "}
+              {networkInfo.nativeCurrency.symbol}
             </Box>
             <Box py={4} px={12}>
               Excluding gas fees.
             </Box>
-            <Box px={12}>
-              Click buy to mint NFT.
-            </Box>
-            <VStack
-              py={8}
-            >
+            <Box px={12}>Click buy to mint NFT.</Box>
+            <VStack py={8}>
               <Box w="80%">
                 <Button w="full" colorScheme="pink" onClick={claim}>
                   Buy 1

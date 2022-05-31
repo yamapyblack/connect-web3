@@ -1,20 +1,20 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import type { AppState, AppThunk } from '../../app/store'
+import type { AppState, AppThunk } from "../../app/store";
 import { abi } from "../../../public/config/abi/abi";
 
 import { networkInfo } from "../../../public/config/blockchainConfig";
 
 export interface BlockchainState {
-  account: string
-  chainId: string
-  errorMsg: string
+  account: string;
+  chainId: string;
+  errorMsg: string;
 }
 
 const initialState = {
-  account: '',
-  chainId: '',
-  errorMsg: '',
+  account: "",
+  chainId: "",
+  errorMsg: "",
 };
 
 export const connect = () => {
@@ -23,24 +23,22 @@ export const connect = () => {
     const { ethereum } = window as any;
     const metamaskIsInstalled = ethereum && ethereum.isMetaMask;
     if (!metamaskIsInstalled) {
-      return dispatch(connectFailed("Install Metamask."));      
+      return dispatch(connectFailed("Install Metamask."));
     }
-    
+
     try {
       const accounts = await ethereum.request({
         method: "eth_requestAccounts",
       });
-      dispatch(
-        setAccount(accounts[0])
-      );
+      dispatch(setAccount(accounts[0]));
       const chainId = await ethereum.request({
         method: "eth_chainId",
       });
-      dispatch(
-        setChainId(chainId)
-      )
+      dispatch(setChainId(chainId));
       if (chainId != networkInfo.chainId) {
-        return dispatch(connectFailed(`Change network to ${networkInfo.chainName}.`));
+        return dispatch(
+          connectFailed(`Change network to ${networkInfo.chainName}.`)
+        );
       }
       // Add listeners start
       ethereum.on("accountsChanged", (accounts) => {
@@ -51,7 +49,7 @@ export const connect = () => {
       });
       // Add listeners end
     } catch (err) {
-      console.log(err)
+      console.log(err);
       dispatch(connectFailed("Something went wrong."));
     }
   };
@@ -69,38 +67,37 @@ export const addChain = () => {
       const chainId = await ethereum.request({
         method: "eth_chainId",
       });
-      dispatch(
-        setChainId(chainId)
-      )
+      dispatch(setChainId(chainId));
     } catch (err) {
       console.log("Astar Network already Connected");
     }
   };
-}
+};
 
 export const blockchainSlice = createSlice({
-  name: 'blockchain',
+  name: "blockchain",
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
     // Use the PayloadAction type to declare the contents of `action.payload`
     setAccount: (state, action: PayloadAction<string>) => {
-      state.account = action.payload
+      state.account = action.payload;
     },
     setChainId: (state, action: PayloadAction<string>) => {
-      state.chainId = action.payload
+      state.chainId = action.payload;
     },
     connectRequest: (state) => {
-      state.errorMsg = ""
+      state.errorMsg = "";
     },
     connectFailed: (state, action: PayloadAction<string>) => {
-      state.errorMsg = action.payload
+      state.errorMsg = action.payload;
     },
   },
-})
+});
 
-export const { setAccount, setChainId, connectRequest, connectFailed } = blockchainSlice.actions
+export const { setAccount, setChainId, connectRequest, connectFailed } =
+  blockchainSlice.actions;
 
-export const getBlockchain = (state: AppState) => state.blockchain
+export const getBlockchain = (state: AppState) => state.blockchain;
 
-export default blockchainSlice.reducer
+export default blockchainSlice.reducer;

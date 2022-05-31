@@ -57,7 +57,7 @@ function Blockchain() {
       >
         <Flex flex={{ base: 1 }}>
           <LinkBox>
-            <Heading fontSize={'3xl'}>
+            <Heading fontSize={"3xl"}>
               <LinkOverlay href="/">ConnectWeb3</LinkOverlay>
             </Heading>
           </LinkBox>
