@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import type { AppState, AppThunk } from '../../app/store'
 import { abi } from "../../../public/config/abi/abi";
 
-import { blockchainConfig, networkInfo } from "../../../public/config/blockchainConfig";
+import { networkInfo } from "../../../public/config/blockchainConfig";
 
 export interface BlockchainState {
   account: string
@@ -16,8 +16,6 @@ const initialState = {
   chainId: '',
   errorMsg: '',
 };
-
-const contractAddr = "0xD02ffF070D6168B159EB5d212821CBCB0B244A6d"
 
 export const connect = () => {
   return async (dispatch) => {
@@ -41,18 +39,19 @@ export const connect = () => {
       dispatch(
         setChainId(chainId)
       )
-      if (chainId != blockchainConfig.NETWORK.CHAIN_ID) {
-        return dispatch(connectFailed(`Change network to ${blockchainConfig.NETWORK.NAME}.`));
+      if (chainId != networkInfo.chainId) {
+        return dispatch(connectFailed(`Change network to ${networkInfo.chainName}.`));
       }
       // Add listeners start
       ethereum.on("accountsChanged", (accounts) => {
-        dispatch(updateAccount(accounts[0]));
+        dispatch(setAccount(accounts[0]));
       });
       ethereum.on("chainChanged", () => {
         window.location.reload();
       });
       // Add listeners end
     } catch (err) {
+      console.log(err)
       dispatch(connectFailed("Something went wrong."));
     }
   };
@@ -91,9 +90,6 @@ export const blockchainSlice = createSlice({
     setChainId: (state, action: PayloadAction<string>) => {
       state.chainId = action.payload
     },
-    updateAccount: (state, action: PayloadAction<string>) => {
-      state.account = action.payload
-    },
     connectRequest: (state) => {
       state.errorMsg = ""
     },
@@ -103,7 +99,7 @@ export const blockchainSlice = createSlice({
   },
 })
 
-export const { setAccount, updateAccount, setChainId, connectRequest, connectFailed } = blockchainSlice.actions
+export const { setAccount, setChainId, connectRequest, connectFailed } = blockchainSlice.actions
 
 export const getBlockchain = (state: AppState) => state.blockchain
 

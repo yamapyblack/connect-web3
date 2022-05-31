@@ -6,22 +6,24 @@ import {
   useColorModeValue,
   useToast,
   Heading,
-  useBreakpointValue,
+  Link,
+  LinkOverlay,
+  LinkBox,
 } from "@chakra-ui/react";
 
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { getBlockchain, connect, addChain } from "./blockchainSlice";
 import { useEffect } from "react";
 
-import { blockchainConfig } from "../../../public/config/blockchainConfig";
+import { networkInfo } from "../../../public/config/blockchainConfig";
 
-const shortLen = (addr: string) => {
+export const shortLen = (addr: string) => {
   return addr.slice(0, 7) + "..." + addr.slice(-5);
 };
 
 function Blockchain() {
   const toast = useToast();
-  
+
   const dispatch = useAppDispatch();
   const blockchain = useAppSelector(getBlockchain);
 
@@ -31,7 +33,9 @@ function Blockchain() {
 
   useEffect(() => {
     //toast
-    if(blockchain.errorMsg == ''){return}
+    if (blockchain.errorMsg == "") {
+      return;
+    }
     toast({
       title: "Connect",
       description: blockchain.errorMsg,
@@ -51,12 +55,12 @@ function Blockchain() {
         borderColor={useColorModeValue("gray.200", "gray.900")}
         align={"center"}
       >
-        <Flex
-          flex={{ base: 1 }}
-        >
-          <Heading>
-            WalletConnectByNextRedux
-          </Heading>
+        <Flex flex={{ base: 1 }}>
+          <LinkBox>
+            <Heading fontSize={'3xl'}>
+              <LinkOverlay href="/">ConnectWeb3</LinkOverlay>
+            </Heading>
+          </LinkBox>
         </Flex>
 
         <Stack
@@ -79,7 +83,7 @@ function Blockchain() {
             >
               CONNECT
             </Button>
-          ) : blockchain.chainId != blockchainConfig.NETWORK.CHAIN_ID ? (
+          ) : blockchain.chainId != networkInfo.chainId ? (
             <Button
               fontSize={"sm"}
               fontWeight={600}

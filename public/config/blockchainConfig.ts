@@ -1,22 +1,3 @@
-export const blockchainConfig ={
-  "CONTRACT_ADDRESS": "0x827acb09a2dc20e39c9aad7f7190d9bc53534192",
-  "SCAN_LINK": "https://polygonscan.com/token/0x827acb09a2dc20e39c9aad7f7190d9bc53534192",
-  "NETWORK": {
-    "NAME": "Astar",
-    "SYMBOL": "ASTR",
-    "CHAIN_ID": "0x250"
-  },
-  "NFT_NAME": "Nerdy Coder Clones",
-  "SYMBOL": "NCC",
-  "MAX_SUPPLY": 1000,
-  "WEI_COST": 75000000000000000,
-  "DISPLAY_COST": 0.075,
-  "GAS_LIMIT": 285000,
-  "MARKETPLACE": "Opeansea",
-  "MARKETPLACE_LINK": "https://opensea.io/collection/nerdy-coder-clones",
-  "SHOW_BACKGROUND": true
-}
-
 export const networkInfo = {
   chainId: "0x250",
   chainName: "Astar Network",
@@ -26,4 +7,15 @@ export const networkInfo = {
     decimals: 18,
   },
   rpcUrls: ["https://astar.api.onfinality.io/public"],
+}
+
+export const nftInfo ={
+  contractAddress: "0x58b639746E3e848b837F842ADf3771CFc2FCA805",
+  scanLink: "https://blockscout.com/astar/token/0x4ecAB8eb7964dDf3A50A1314fb1463372F802555",
+  nftName: "FelixirNFT",
+  symbol: "FLX",
+  maxSupply: 4000,
+  price: "100",
+  marketplace: "TofuNFT",
+  marketplaceLink: "https://tofunft.com/collection/felixirdao-v2/items",
 }

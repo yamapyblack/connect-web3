@@ -7,6 +7,10 @@ import {
   Text,
   Button,
   Stack,
+  LinkOverlay,
+  LinkBox,
+  Image,
+  Flex
 } from '@chakra-ui/react';
 
 const IndexPage: NextPage = () => {
@@ -16,24 +20,24 @@ const IndexPage: NextPage = () => {
         <Stack
           as={Box}
           textAlign={'center'}
-          spacing={{ base: 8, md: 14 }}
-          py={{ base: 20, md: 36 }}>
+          spacing={{ base: 6, md: 10 }}
+          >
           <Heading
+            mt={8}
             fontWeight={600}
             fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
             lineHeight={'110%'}>
-            Accerelate your development<br />
-            <Text as={'span'} color={'green.400'}>
-              on Web3
-            </Text>
+              Hello&nbsp;
+              <Text as={'span'} color={'green.400'}>Web3 &#128526;</Text>
           </Heading>
+          <Flex w={'full'} justifyContent="center">
+            <Image src="logo.png" />
+          </Flex>
           <Text color={'gray.500'}>
-            You can get and store users address and chainid by the Metamask and<br/>
-            Next.js and Redux help your velocity.
+            Metamask connect by Next.js and Redux.
           </Text>
           <Stack
             direction={'column'}
-            spacing={3}
             align={'center'}
             alignSelf={'center'}
             position={'relative'}>
@@ -41,6 +45,13 @@ const IndexPage: NextPage = () => {
               Learn more
             </Button>
           </Stack>
+          <LinkBox>
+            <LinkOverlay href="/mint">
+              <Button colorScheme={'pink'} size={'md'}>
+                Mint Page
+              </Button>
+            </LinkOverlay>
+          </LinkBox>
         </Stack>
       </Container>
     </>

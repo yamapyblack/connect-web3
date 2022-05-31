@@ -6,9 +6,19 @@ import type { AppDispatch, AppState } from './store'
 import type {BlockchainState} from '../features/blockchain/blockchainSlice'
 import { ethers } from "ethers";
 import { abi } from "../../public/config/abi/abi";
+import { networkInfo } from '../../public/config/blockchainConfig';
 
 const contractAddr = "0xD02ffF070D6168B159EB5d212821CBCB0B244A6d"
 
+export const isLoggedIn = (blockchain: BlockchainState):boolean => {
+  if(!blockchain.account){
+    return false
+  }
+  if (blockchain.chainId != networkInfo.chainId) {
+    return false
+  }
+  return true
+}
 
 export const balanceOf = (blockchain: BlockchainState) => {
   console.log("balanceOf hook");
